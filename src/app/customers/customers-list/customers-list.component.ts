@@ -1,3 +1,4 @@
+import { SorterService } from './../core/sorter.service';
 import { Component, OnInit ,Input } from '@angular/core';
 import { ICustomer } from '../../shared/interfaces';
 
@@ -24,7 +25,7 @@ export class CustomersListComponent implements OnInit {
   customersOrderTotat: number;
   currencyCode: string = 'USD';
 
-  constructor() {}
+  constructor(private sorterService: SorterService ) {}
 
   ngOnInit() {
 
@@ -39,12 +40,17 @@ export class CustomersListComponent implements OnInit {
 
   filter(data: string) {
     if(data) {
-      this.filteredCustomers = this.customers.filter((cust:ICustomer)) => {
-        return customElements.name.toLowerCase().indexOf(data.toLowerCase())
-      }
+      this.filteredCustomers = this.customers.filter((cust:ICustomer) => {
+        return cust.name.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+               cust.name.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+               cust.orderTotal.toString().indexOf(data) > -1;
+      });
+    }else {
+      this.filteredCustomers = this.customers;
     }
+    this.calculateOrders();
   }
   sort(prop: string) {
-    // A sorter service will handle the sorting
+    this.sorterService.sort(this.filteredCustomers,prop);
   }
 }
