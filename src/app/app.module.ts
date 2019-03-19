@@ -1,3 +1,5 @@
+import { OrdersModule } from './orders/orders.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { CoreModule } from './customers/core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -11,8 +13,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule , CustomersModule
-    , SharedModule ,CoreModule ],
+    BrowserModule , CustomersModule , OrdersModule
+    , SharedModule ,CoreModule ,AppRoutingModule ],
   providers: [],
   bootstrap: [AppComponent]
 })
